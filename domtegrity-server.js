@@ -36,7 +36,6 @@ var WebSocketServer = require('ws').Server
 
 
 wss.on('connection', function(socket) {
-    console.log(" connect request recieved at " + process.hrtime());
     var sessionID = socket.upgradeReq.socket.getSession().toString('hex');
 
 
@@ -74,12 +73,14 @@ wss.on('connection', function(socket) {
         const hmac = crypto.createHmac('sha256', tlsSessionTokenStore[sessionID].private);
 
         // This is the test PID... you might use other PIDs in your page.
-        var pid = '222222222222222222222222222222222222222222222222222222222222211'+(fs.readFileSync("Client/index.html").toString()).replace(/["']+/g, '').replace(/[\n\r]+/g, '').replace(/\s{1,50}/g, '').trim();
+        var pid = '2222222222222222211'+(fs.readFileSync("Client/index.html").toString()).replace(/["']+/g, '').replace(/[\n\r]+/g, '').replace(/\s{1,50}/g, '').trim();
+
 
         hmac.update(pid);
         
         var temp = hmac.digest();
 
+        var timeNow = new Date();
         var reason = "";
 
         if (!tlsSessionServerSideData[sessionID].decide) {

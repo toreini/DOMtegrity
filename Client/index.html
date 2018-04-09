@@ -425,6 +425,7 @@
 					}
 
 					function _generatePID() {
+						console.log(_changes);
 						return ((_changes + "<html>" + document.documentElement.innerHTML + "</html>").replace(/["']+/g, '').replace(/[\n\r]+/g, '').replace(/\s{1,10}/g, '').trim());
 					}
 
